@@ -13,11 +13,11 @@ BG = pygame.transform.scale(pygame.image.load("game_bg.png"), (WIDTH, HEIGHT))
 
 PLAYER_WIDTH = 40
 PLAYER_HEIGHT = 60
-PLAYER_VEL = 8
+PLAYER_VEL = 6
 
 STAR_WIDTH = 10
 STAR_HEIGHT = 20
-STAR_VEL = 10
+STAR_VEL = 3
 
 FONT = pygame.font.SysFont("comicsans", 30)
 
@@ -87,6 +87,19 @@ def main():
                 stars.remove(star)
                 hit = True
                 break
+
+        if hit:
+            lost_text = FONT.render("You Lost!", 1, "white")
+            WIN.blit(
+                lost_text,
+                (
+                    WIDTH / 2 - lost_text.get_width() / 2,
+                    HEIGHT / 2 - lost_text.get_height() / 2,
+                ),
+            )
+            pygame.display.update()
+            pygame.time.delay(4000)
+            break
 
         draw(player, elapsed_time, stars)
 
