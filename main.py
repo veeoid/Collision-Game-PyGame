@@ -9,15 +9,24 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 
 pygame.display.set_caption("Collision Game")
 
-BG = pygame.transform.scale(pygame.image.load("game_bg.png"), (WIDTH, HEIGHT))
-
-PLAYER_WIDTH = 40
-PLAYER_HEIGHT = 60
+PLAYER_WIDTH = 80
+PLAYER_HEIGHT = 80
 PLAYER_VEL = 6
 
-STAR_WIDTH = 10
-STAR_HEIGHT = 20
+STAR_WIDTH = 50
+STAR_HEIGHT = 50
 STAR_VEL = 3
+
+
+BG = pygame.transform.scale(pygame.image.load("game_bg.png"), (WIDTH, HEIGHT))
+# remove background from player image
+PLAYER_IMG = pygame.transform.scale(
+    pygame.image.load("spaceship.png"), (PLAYER_WIDTH, PLAYER_HEIGHT)
+)
+STAR_IMG = pygame.transform.scale(
+    pygame.image.load("star.png"), (STAR_WIDTH, STAR_HEIGHT)
+)
+
 
 FONT = pygame.font.SysFont("comicsans", 30)
 
@@ -28,10 +37,10 @@ def draw(player, elapsed_time, stars):
     time_text = FONT.render(f"Time: {round(elapsed_time)}s", 1, "white")
     WIN.blit(time_text, (10, 10))
 
-    pygame.draw.rect(WIN, "blue", player)
+    WIN.blit(PLAYER_IMG, (player.x, player.y))
 
     for star in stars:
-        pygame.draw.rect(WIN, "white", star)
+        WIN.blit(STAR_IMG, (star.x, star.y))
 
     pygame.display.update()
 
@@ -40,7 +49,12 @@ def draw(player, elapsed_time, stars):
 def main():
     run = True
 
-    player = pygame.Rect(200, HEIGHT - PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT)
+    player = pygame.Rect(
+        WIDTH / 2 - PLAYER_WIDTH / 2,
+        HEIGHT - PLAYER_HEIGHT,
+        PLAYER_WIDTH,
+        PLAYER_HEIGHT,
+    )
     clock = pygame.time.Clock()
 
     start_time = time.time()
