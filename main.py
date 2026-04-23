@@ -83,7 +83,7 @@ def draw(player, elapsed_time, stars):
     WIN.blit(time_text, (10, 10))
 
     player.draw()
-    pygame.draw.rect(WIN, (255, 0, 0), player.rect, 2)
+    # pygame.draw.rect(WIN, (255, 0, 0), player.rect, 2)
 
     for star in stars:
         star.draw()
